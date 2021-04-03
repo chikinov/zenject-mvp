@@ -8,6 +8,8 @@ namespace Zenject.MVP
         where TPresenter : IPresenter<TView, TPresenter>
         where TView : UIViewGroup<TPresenter, TView>
     {
+        [SerializeField] private RectTransform childViewParent;
+
         protected readonly List<IUIView> views = new List<IUIView>();
 
         public virtual void AddView(IUIView view)
@@ -17,7 +19,8 @@ namespace Zenject.MVP
             views.Add(view);
 
             var rectTransform = view.RectTransform;
-            rectTransform.SetParent(Transform, true);
+            rectTransform.SetParent(
+                childViewParent == null ? Transform : childViewParent, true);
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchorMax = Vector2.one;
             rectTransform.offsetMax = Vector2.zero;
