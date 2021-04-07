@@ -70,6 +70,7 @@ namespace Zenject.MVP
         public virtual void Construct(TPresenter presenter)
         {
             this.presenter = presenter;
+            presenter.Initialize();
         }
 
         public virtual ITransition Show(bool animated = true)

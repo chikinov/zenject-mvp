@@ -13,7 +13,10 @@ namespace Zenject.MVP
         public Presenter(TView view)
         {
             this.view = view;
+        }
 
+        public virtual void Initialize()
+        {
             view.OnEnable += HandleViewOnEnable;
             view.OnDisable += HandleViewOnDisable;
         }
