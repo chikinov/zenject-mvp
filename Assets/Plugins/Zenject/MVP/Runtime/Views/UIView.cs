@@ -4,15 +4,10 @@ using UnityEngine.EventSystems;
 
 namespace Zenject.MVP
 {
-    public abstract class UIView<TPresenter, TView>
-        : UIBehaviour, IUIView<TPresenter, TView>
-        where TPresenter : IPresenter<TView, TPresenter>
-        where TView : UIView<TPresenter, TView>
+    public abstract class UIView : UIBehaviour, IUIView
     {
         [SerializeField] private UIAnimation showAnimation;
         [SerializeField] private UIAnimation hideAnimation;
-
-        protected TPresenter presenter;
 
         public string Name
         {
@@ -64,13 +59,6 @@ namespace Zenject.MVP
             {
                 if (CanvasGroup) canvasGroup.interactable = value;
             }
-        }
-
-        [Inject]
-        public virtual void Construct(TPresenter presenter)
-        {
-            this.presenter = presenter;
-            presenter.Initialize();
         }
 
         public virtual ITransition Show(bool animated = true)
@@ -129,13 +117,6 @@ namespace Zenject.MVP
             base.OnDisable();
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            presenter.Dispose();
-        }
-
         private struct Animation : IAnimation
         {
             private readonly UIAnimation animation;
@@ -169,6 +150,28 @@ namespace Zenject.MVP
                 else callback?.Invoke();
                 return this;
             }
+        }
+    }
+
+    public abstract class UIView<TPresenter, TView>
+        : UIView, IUIView<TPresenter, TView>
+        where TPresenter : IPresenter<TView, TPresenter>
+        where TView : UIView<TPresenter, TView>
+    {
+        protected TPresenter presenter;
+
+        [Inject]
+        public virtual void Construct(TPresenter presenter)
+        {
+            this.presenter = presenter;
+            presenter.Initialize();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            presenter.Dispose();
         }
     }
 }
