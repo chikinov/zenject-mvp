@@ -82,41 +82,6 @@ namespace Zenject.MVP
                 .OnComplete(() => IsVisible = false);
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            Hide(false);
-        }
-
-        private EventHandler onEnable;
-        event EventHandler IView.OnEnable
-        {
-            add => onEnable += value;
-            remove => onEnable -= value;
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            onEnable?.Invoke(this, EventArgs.Empty);
-        }
-
-        private EventHandler onDisable;
-        event EventHandler IView.OnDisable
-        {
-            add => onDisable += value;
-            remove => onDisable -= value;
-        }
-
-        protected override void OnDisable()
-        {
-            onDisable?.Invoke(this, EventArgs.Empty);
-
-            base.OnDisable();
-        }
-
         private struct Animation : IAnimation
         {
             private readonly UIAnimation animation;
@@ -160,11 +125,35 @@ namespace Zenject.MVP
     {
         protected TPresenter presenter;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Interactable = false;
+            IsVisible = false;
+        }
+
         [Inject]
         public virtual void Construct(TPresenter presenter)
         {
             this.presenter = presenter;
             presenter.Initialize();
+        }
+
+        public override ITransition Show(bool animated = true)
+        {
+            var transition = base.Show(animated);
+
+            presenter.OnViewShow();
+
+            return transition;
+        }
+
+        public override ITransition Hide(bool animated = true)
+        {
+            presenter.OnViewHide();
+
+            return base.Hide(animated);
         }
 
         protected override void OnDestroy()

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Zenject.MVP
@@ -16,9 +15,6 @@ namespace Zenject.MVP
         ITransition Show(bool animated);
 
         ITransition Hide(bool animated);
-
-        event EventHandler OnEnable;
-        event EventHandler OnDisable;
     }
 
     public interface IView<TPresenter, TView> : IView

@@ -1,5 +1,3 @@
-using System;
-
 namespace Zenject.MVP
 {
     public abstract class Presenter<TView, TPresenter>
@@ -17,24 +15,18 @@ namespace Zenject.MVP
 
         public virtual void Initialize()
         {
-            view.OnEnable += HandleViewOnEnable;
-            view.OnDisable += HandleViewOnDisable;
         }
 
-        protected virtual void HandleViewOnEnable(
-            object sender, EventArgs eventArgs)
+        public virtual void OnViewShow()
         {
         }
 
-        protected virtual void HandleViewOnDisable(
-            object sender, EventArgs eventArgs)
+        public virtual void OnViewHide()
         {
         }
 
         public virtual void Dispose()
         {
-            view.OnEnable -= HandleViewOnEnable;
-            view.OnDisable -= HandleViewOnDisable;
         }
     }
 }
