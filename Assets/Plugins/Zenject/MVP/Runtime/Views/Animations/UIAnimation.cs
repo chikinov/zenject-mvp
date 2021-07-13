@@ -3,15 +3,13 @@ using UnityEngine;
 
 namespace Zenject.MVP
 {
-    public abstract class UIAnimation : MonoBehaviour, IAnimation
+    public abstract class UIAnimation : MonoBehaviour, ITransition
     {
         protected Action onComplete;
 
         public abstract bool IsDone { get; }
 
-        ITransition ITransition.Run() => Play();
-
-        public abstract IAnimation Play();
+        public abstract ITransition Play();
 
         public abstract void Stop();
 

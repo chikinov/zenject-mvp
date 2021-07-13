@@ -11,8 +11,6 @@ namespace Zenject.MVP
         float Alpha { get; set; }
 
         bool Interactable { get; set; }
-
-        ITransition Show(bool animated = true);
     }
 
     public interface IUIView<TPresenter, TView>

@@ -17,7 +17,7 @@ namespace Zenject.MVP
 
         public override bool IsDone => coroutine == null;
 
-        public override IAnimation Play()
+        public override ITransition Play()
         {
             Stop();
 

@@ -6,7 +6,7 @@ namespace Zenject.MVP
     {
         bool IsDone { get; }
 
-        ITransition Run();
+        ITransition Play();
 
         void Stop();
 

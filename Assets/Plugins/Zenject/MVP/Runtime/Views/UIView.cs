@@ -82,7 +82,7 @@ namespace Zenject.MVP
                 .OnComplete(() => IsVisible = false);
         }
 
-        private struct Animation : IAnimation
+        private struct Animation : ITransition
         {
             private readonly UIAnimation animation;
             private readonly bool animated;
@@ -96,9 +96,7 @@ namespace Zenject.MVP
                 this.animated = animated;
             }
 
-            ITransition ITransition.Run() => Play();
-
-            public IAnimation Play()
+            public ITransition Play()
             {
                 if (animated && animation) animation.Play();
                 return this;
