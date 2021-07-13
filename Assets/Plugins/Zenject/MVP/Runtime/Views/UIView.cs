@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -69,7 +68,8 @@ namespace Zenject.MVP
 
             Interactable = true;
 
-            return new Animation(showAnimation, animated).Play();
+            return showAnimation && animated ?
+                showAnimation.Play() : UIAnimation.Placeholder;
         }
 
         public virtual ITransition Hide(bool animated = true)
@@ -78,41 +78,9 @@ namespace Zenject.MVP
 
             Interactable = false;
 
-            return new Animation(hideAnimation, animated).Play()
+            return (hideAnimation && animated ?
+                hideAnimation.Play() : UIAnimation.Placeholder)
                 .OnComplete(() => IsVisible = false);
-        }
-
-        private struct Animation : ITransition
-        {
-            private readonly UIAnimation animation;
-            private readonly bool animated;
-
-            public bool IsDone =>
-                !animated || animation == null || animation.IsDone;
-
-            public Animation(UIAnimation animation, bool animated)
-            {
-                this.animation = animation;
-                this.animated = animated;
-            }
-
-            public ITransition Play()
-            {
-                if (animated && animation) animation.Play();
-                return this;
-            }
-
-            public void Stop()
-            {
-                animation.Stop();
-            }
-
-            public ITransition OnComplete(Action callback)
-            {
-                if (animated && animation) animation.OnComplete(callback);
-                else callback?.Invoke();
-                return this;
-            }
         }
     }
 

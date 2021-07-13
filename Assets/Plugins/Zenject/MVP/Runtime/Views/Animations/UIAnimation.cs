@@ -5,6 +5,9 @@ namespace Zenject.MVP
 {
     public abstract class UIAnimation : MonoBehaviour, ITransition
     {
+        public static readonly ITransition Placeholder =
+            new PlaceholderAnimation();
+
         protected Action onComplete;
 
         public abstract bool IsDone { get; }
@@ -15,13 +18,9 @@ namespace Zenject.MVP
 
         public virtual ITransition OnComplete(Action callback)
         {
-            if (IsDone)
-            {
-                callback?.Invoke();
-                return this;
-            }
+            if (IsDone) callback?.Invoke();
+            else onComplete += callback;
 
-            onComplete += callback;
             return this;
         }
     }
