@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.demigiant.dotween": {
+      "version": "1.2.42",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.svermeulen.extenject": {
       "version": "https://github.com/svermeulen/Extenject.git?path=/UnityProject/Assets/Plugins/Zenject",
       "depth": 0,

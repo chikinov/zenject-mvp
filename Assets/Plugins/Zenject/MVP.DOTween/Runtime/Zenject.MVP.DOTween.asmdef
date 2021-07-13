@@ -1,0 +1,17 @@
+{
+    "name": "Zenject.MVP.DOTween",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b85a9b696dea92b4f9d0efe8b3f0e5b7",
+        "GUID:8b53708bfede84e669f17070d1347a57"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

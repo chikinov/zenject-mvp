@@ -1,0 +1,24 @@
+{
+	"name": "com.chikinov.zenject.mvp.dotween",
+	"displayName": "Zenject MVP DOTween Extension",
+	"version": "0.0.1",
+	"description": "DOTween extension for Zenject MVP",
+	"dependencies": {
+		"com.chikinov.zenject.mvp": "0.0.1",
+		"com.demigiant.dotween": "1.2.42"
+	},
+	"keywords": [
+		"dotween",
+		"mvp",
+		"model",
+		"view",
+		"presenter",
+		"extenject",
+		"zenject"
+	],
+	"author": {
+		"name": "Ken Lau",
+		"email": "chikinov@gmail.com",
+		"url": "https://github.com/chikinov"
+	}
+}

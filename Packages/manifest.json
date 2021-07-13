@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.demigiant.dotween": "1.2.42",
     "com.svermeulen.extenject": "https://github.com/svermeulen/Extenject.git?path=/UnityProject/Assets/Plugins/Zenject",
     "com.unity.ide.visualstudio": "2.0.7",
     "com.unity.ugui": "1.0.0",
@@ -34,5 +35,14 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.demigiant.dotween"
+      ]
+    }
+  ]
 }
