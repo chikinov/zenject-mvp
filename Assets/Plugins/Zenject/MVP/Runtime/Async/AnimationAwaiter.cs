@@ -3,17 +3,17 @@ using System.Runtime.CompilerServices;
 
 namespace Zenject.MVP.Async
 {
-    public struct TransitionAwaiter : ICriticalNotifyCompletion
+    public struct AnimationAwaiter : ICriticalNotifyCompletion
     {
-        private readonly ITransition transition;
+        private readonly IAnimation animation;
 
-        public bool IsCompleted => transition == null || transition.IsDone;
+        public bool IsCompleted => animation == null || animation.IsDone;
 
         public void GetResult() { }
 
-        public TransitionAwaiter(ITransition transition)
+        public AnimationAwaiter(IAnimation animation)
         {
-            this.transition = transition;
+            this.animation = animation;
         }
 
         public void OnCompleted(Action continuation)
@@ -23,7 +23,7 @@ namespace Zenject.MVP.Async
 
         public void UnsafeOnCompleted(Action continuation)
         {
-            transition?.OnComplete(continuation);
+            animation?.OnComplete(continuation);
         }
     }
 }

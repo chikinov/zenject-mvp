@@ -12,9 +12,9 @@ namespace Zenject.MVP
 
         bool IsVisible { get; set; }
 
-        ITransition Show(bool animated);
+        IAnimation Show(bool animated);
 
-        ITransition Hide(bool animated);
+        IAnimation Hide(bool animated);
     }
 
     public interface IView<TPresenter, TView> : IView

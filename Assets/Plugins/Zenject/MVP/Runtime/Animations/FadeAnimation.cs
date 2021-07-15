@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Zenject.MVP
 {
-    public class FadeAnimation : UIAnimation
+    public class FadeAnimation : Animation
     {
         [Range(0F, 1F)]
         [SerializeField] private float from = 0;
@@ -17,7 +17,7 @@ namespace Zenject.MVP
 
         public override bool IsDone => coroutine == null;
 
-        public override ITransition Play()
+        public override IAnimation Play()
         {
             Stop();
 
@@ -41,7 +41,8 @@ namespace Zenject.MVP
         {
             try
             {
-                if (!TryGetComponent<IUIView>(out var view)) yield break;
+                if (!TryGetComponent<CanvasGroup>(out var canvasGroup))
+                    yield break;
 
                 var t = 0F;
                 float alpha;
@@ -50,7 +51,7 @@ namespace Zenject.MVP
                 {
                     t += Time.deltaTime / duration;
                     alpha = Mathf.Lerp(from, to, t);
-                    view.Alpha = alpha;
+                    canvasGroup.alpha = alpha;
                     if (from < to ? alpha < to : alpha > to) yield return null;
                     else yield break;
                 } while (true);

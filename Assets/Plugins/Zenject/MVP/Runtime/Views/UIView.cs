@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 namespace Zenject.MVP
 {
-    public abstract class UIView : UIBehaviour, IUIView
+    public class UIView : UIBehaviour, IUIView
     {
-        [SerializeField] private UIAnimation showAnimation;
-        [SerializeField] private UIAnimation hideAnimation;
+        [SerializeField] private Animation showAnimation;
+        [SerializeField] private Animation hideAnimation;
 
         public string Name
         {
@@ -60,7 +60,7 @@ namespace Zenject.MVP
             }
         }
 
-        public virtual ITransition Show(bool animated = true)
+        public virtual IAnimation Show(bool animated = true)
         {
             if (hideAnimation) hideAnimation.Stop();
 
@@ -69,22 +69,22 @@ namespace Zenject.MVP
             Interactable = true;
 
             return showAnimation && animated ?
-                showAnimation.Play() : UIAnimation.Placeholder;
+                showAnimation.Play() : Animation.Placeholder;
         }
 
-        public virtual ITransition Hide(bool animated = true)
+        public virtual IAnimation Hide(bool animated = true)
         {
             if (showAnimation) showAnimation.Stop();
 
             Interactable = false;
 
             return (hideAnimation && animated ?
-                hideAnimation.Play() : UIAnimation.Placeholder)
+                hideAnimation.Play() : Animation.Placeholder)
                 .OnComplete(() => IsVisible = false);
         }
     }
 
-    public abstract class UIView<TPresenter, TView>
+    public class UIView<TPresenter, TView>
         : UIView, IUIView<TPresenter, TView>
         where TPresenter : IPresenter<TView, TPresenter>
         where TView : UIView<TPresenter, TView>
@@ -106,16 +106,16 @@ namespace Zenject.MVP
             presenter.Initialize();
         }
 
-        public override ITransition Show(bool animated = true)
+        public override IAnimation Show(bool animated = true)
         {
-            var transition = base.Show(animated);
+            var animation = base.Show(animated);
 
             presenter.OnViewShow();
 
-            return transition;
+            return animation;
         }
 
-        public override ITransition Hide(bool animated = true)
+        public override IAnimation Hide(bool animated = true)
         {
             presenter.OnViewHide();
 

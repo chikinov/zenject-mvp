@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace Zenject.MVP
 {
-    public abstract class UIAnimation : MonoBehaviour, ITransition
+    public abstract class Animation : MonoBehaviour, IAnimation
     {
-        public static readonly ITransition Placeholder =
+        public static readonly IAnimation Placeholder =
             new PlaceholderAnimation();
 
         protected Action onComplete;
 
         public abstract bool IsDone { get; }
 
-        public abstract ITransition Play();
+        public abstract IAnimation Play();
 
         public abstract void Stop();
 
-        public virtual ITransition OnComplete(Action callback)
+        public virtual IAnimation OnComplete(Action callback)
         {
             if (IsDone) callback?.Invoke();
             else onComplete += callback;

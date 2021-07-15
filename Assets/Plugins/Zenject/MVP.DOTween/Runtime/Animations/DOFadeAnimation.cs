@@ -3,21 +3,24 @@ using UnityEngine;
 
 namespace Zenject.MVP.DOTween
 {
-    public class DOFadeAnimation : UIAnimation
+    public class DOFadeAnimation : Animation
     {
         [Range(0F, 1F)]
         [SerializeField] private float to = 1F;
 
         [SerializeField] private float duration = 1F;
 
+        [SerializeField] private Ease ease = Ease.OutQuad;
+
         private Tween tween;
 
         public override bool IsDone => tween == null || tween.IsComplete();
 
-        public override ITransition Play()
+        public override IAnimation Play()
         {
-            if (TryGetComponent<IUIView>(out var view))
-                tween = view.CanvasGroup.DOFade(to, duration)
+            if (TryGetComponent<CanvasGroup>(out var canvasGroup))
+                tween = canvasGroup.DOFade(to, duration)
+                    .SetEase(ease)
                     .OnComplete(OnTweenComplete);
             else OnTweenComplete();
 

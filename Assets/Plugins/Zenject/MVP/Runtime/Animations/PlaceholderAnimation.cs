@@ -2,15 +2,15 @@ using System;
 
 namespace Zenject.MVP
 {
-    public sealed class PlaceholderAnimation : ITransition
+    public sealed class PlaceholderAnimation : IAnimation
     {
         public bool IsDone { get; } = true;
 
-        public ITransition Play() => this;
+        public IAnimation Play() => this;
 
         public void Stop() { }
 
-        public ITransition OnComplete(Action callback)
+        public IAnimation OnComplete(Action callback)
         {
             callback?.Invoke();
 
