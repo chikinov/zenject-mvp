@@ -68,8 +68,16 @@ namespace Zenject.MVP
 
             Interactable = true;
 
-            return showAnimation && animated ?
-                showAnimation.Play() : Animation.Placeholder;
+            if (showAnimation)
+            {
+                showAnimation.Play();
+
+                if (!animated) showAnimation.Complete();
+
+                return showAnimation;
+            }
+
+            return Animation.Placeholder;
         }
 
         public virtual IAnimation Hide(bool animated = true)
@@ -78,9 +86,18 @@ namespace Zenject.MVP
 
             Interactable = false;
 
-            return (hideAnimation && animated ?
-                hideAnimation.Play() : Animation.Placeholder)
-                .OnComplete(() => IsVisible = false);
+            if (hideAnimation)
+            {
+                hideAnimation.Play().OnComplete(() => IsVisible = false);
+
+                if (!animated) hideAnimation.Complete();
+
+                return hideAnimation;
+            }
+
+            IsVisible = false;
+
+            return Animation.Placeholder;
         }
     }
 
@@ -95,8 +112,7 @@ namespace Zenject.MVP
         {
             base.Awake();
 
-            Interactable = false;
-            IsVisible = false;
+            base.Hide(false);
         }
 
         [Inject]

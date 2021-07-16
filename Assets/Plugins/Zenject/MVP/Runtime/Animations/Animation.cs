@@ -16,6 +16,8 @@ namespace Zenject.MVP
 
         public abstract void Stop();
 
+        public abstract void Complete();
+
         public virtual IAnimation OnComplete(Action callback)
         {
             if (IsDone) callback?.Invoke();

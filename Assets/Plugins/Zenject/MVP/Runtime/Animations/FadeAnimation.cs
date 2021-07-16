@@ -28,13 +28,26 @@ namespace Zenject.MVP
 
         public override void Stop()
         {
-            if (coroutine == null) return;
-
-            StopCoroutine(coroutine);
-
-            coroutine = null;
+            StopCoroutine();
 
             onComplete = null;
+        }
+
+        public override void Complete()
+        {
+            try
+            {
+                StopCoroutine();
+
+                if (!TryGetComponent<CanvasGroup>(out var canvasGroup)) return;
+
+                canvasGroup.alpha = to;
+            }
+            finally
+            {
+                onComplete?.Invoke();
+                onComplete = null;
+            }
         }
 
         private IEnumerator DoPlay()
@@ -61,6 +74,15 @@ namespace Zenject.MVP
                 onComplete?.Invoke();
                 onComplete = null;
             }
+        }
+
+        private void StopCoroutine()
+        {
+            if (coroutine == null) return;
+
+            StopCoroutine(coroutine);
+
+            coroutine = null;
         }
 
         private void OnDisable()

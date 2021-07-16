@@ -10,6 +10,8 @@ namespace Zenject.MVP
 
         public void Stop() { }
 
+        public void Complete() { }
+
         public IAnimation OnComplete(Action callback)
         {
             callback?.Invoke();
