@@ -6,8 +6,6 @@ namespace Zenject.MVP
     {
         string Name { get; set; }
 
-        Transform Parent { get; }
-
         Transform Transform { get; }
 
         bool IsVisible { get; set; }

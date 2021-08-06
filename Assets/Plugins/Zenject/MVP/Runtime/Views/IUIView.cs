@@ -4,6 +4,8 @@ namespace Zenject.MVP
 {
     public interface IUIView : IView
     {
+        IUIView Parent { get; set; }
+
         RectTransform RectTransform { get; }
 
         CanvasGroup CanvasGroup { get; }
@@ -11,6 +13,12 @@ namespace Zenject.MVP
         float Alpha { get; set; }
 
         bool Interactable { get; set; }
+
+        internal void AddChild(IUIView view);
+
+        internal void RemoveChild(IUIView view);
+
+        IUIView FindChild<T>() where T : IUIView;
     }
 
     public interface IUIView<TPresenter, TView>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Zenject.MVP
 {
     public abstract class NavigationView<TPresenter, TView>
-        : UIViewGroup<TPresenter, TView>, INavigationView
+        : UIView<TPresenter, TView>, INavigationView
         where TPresenter : IPresenter<TView, TPresenter>
         where TView : NavigationView<TPresenter, TView>
     {

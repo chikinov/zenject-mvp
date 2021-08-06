@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,10 @@ namespace Zenject.MVP
     {
         [SerializeField] private Animation showAnimation;
         [SerializeField] private Animation hideAnimation;
+
+        protected readonly List<IUIView> children = new List<IUIView>();
+
+        protected virtual Transform ChildParentTransform => Transform;
 
         public string Name
         {
@@ -18,8 +23,6 @@ namespace Zenject.MVP
                 gameObject.name = value;
             }
         }
-
-        public Transform Parent => RectTransform ? rectTransform.parent : null;
 
         public Transform Transform => RectTransform;
 
@@ -34,13 +37,33 @@ namespace Zenject.MVP
             }
         }
 
+        private IUIView parent;
+        public IUIView Parent
+        {
+            get => parent;
+            set
+            {
+                if (value == parent) return;
+
+                if (parent != null) parent.RemoveChild(this);
+
+                parent = value;
+
+                if (parent == null) return;
+
+                parent.AddChild(this);
+            }
+        }
+
         private RectTransform rectTransform;
         public RectTransform RectTransform =>
-            IsDestroyed() ? null : rectTransform ??= transform as RectTransform;
+            IsDestroyed() ? null : rectTransform ?
+            rectTransform : rectTransform = transform as RectTransform;
 
         private CanvasGroup canvasGroup;
         public virtual CanvasGroup CanvasGroup =>
-            IsDestroyed() ? null : canvasGroup ??= GetComponent<CanvasGroup>();
+            IsDestroyed() ? null : canvasGroup ?
+            canvasGroup : canvasGroup = GetComponent<CanvasGroup>();
 
         public virtual float Alpha
         {
@@ -98,6 +121,33 @@ namespace Zenject.MVP
             IsVisible = false;
 
             return Animation.Placeholder;
+        }
+
+        void IUIView.AddChild(IUIView view)
+        {
+            if (children.Contains(view)) return;
+
+            children.Add(view);
+
+            var rectTransform = view.RectTransform;
+            rectTransform.SetParent(ChildParentTransform);
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.offsetMax = Vector2.zero;
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.pivot = new Vector2(0.5F, 0.5F);
+            rectTransform.localPosition = Vector3.zero;
+            rectTransform.localScale = Vector3.one;
+        }
+
+        void IUIView.RemoveChild(IUIView view)
+        {
+            if (children.Remove(view)) view.Transform.SetParent(null);
+        }
+
+        public virtual IUIView FindChild<T>() where T : IUIView
+        {
+            return children.Find(view => view is T);
         }
     }
 

@@ -1,6 +1,6 @@
 namespace Zenject.MVP
 {
-    public interface INavigationView : IUIViewGroup
+    public interface INavigationView : IUIView
     {
         void Push(IUIView view, bool animated = true);
 
