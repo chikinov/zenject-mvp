@@ -11,7 +11,7 @@ namespace Zenject.MVP
 
         protected readonly List<IUIView> children = new List<IUIView>();
 
-        protected virtual Transform ChildParentTransform => Transform;
+        public virtual Transform ChildParentTransform => Transform;
 
         public string Name
         {
