@@ -1,20 +1,19 @@
 {
-	"name": "com.chikinov.zenject.mvp",
-	"displayName": "Zenject MVP",
-	"version": "0.0.1",
-	"description": "MVP (Model-View-Presenter) extension for Extenject (Zenject)",
-	"dependencies": {},
-	"keywords": [
-		"mvp",
-		"model",
-		"view",
-		"presenter",
-		"extenject",
-		"zenject"
-	],
-	"author": {
-		"name": "Ken Lau",
-		"email": "chikinov@gmail.com",
-		"url": "https://github.com/chikinov"
-	}
+  "name": "com.chikinov.zenject.mvp",
+  "displayName": "Zenject MVP",
+  "version": "0.0.2",
+  "description": "MVP (Model-View-Presenter) extension for Extenject (Zenject)",
+  "keywords": [
+    "mvp",
+    "model",
+    "view",
+    "presenter",
+    "extenject",
+    "zenject"
+  ],
+  "author": {
+    "name": "Ken Lau",
+    "email": "chikinov@gmail.com",
+    "url": "https://github.com/chikinov"
+  }
 }
