@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -62,7 +63,8 @@ namespace Zenject.MVP
                 !string.IsNullOrEmpty(negativeText));
         }
 
-        public async Task<bool> ShowAndWaitAsync()
+        public async Task<bool> ShowAndWaitAsync(
+            CancellationToken cancellationToken = default)
         {
             await Show();
 
@@ -73,6 +75,9 @@ namespace Zenject.MVP
                     return false;
 
                 var tcs = new TaskCompletionSource<bool>();
+
+                using var registration = cancellationToken.Register(
+                    () => tcs.TrySetResult(false));
 
                 var positiveAction = new UnityAction(
                     () => tcs.TrySetResult(true));
