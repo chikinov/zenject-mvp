@@ -7,6 +7,7 @@ namespace Zenject.MVP.DOTween
     {
         [SerializeField] protected float duration = 1F;
         [SerializeField] protected Ease ease = Ease.OutQuad;
+        [SerializeField] protected bool ignoreTimeScale;
 
         protected Tween tween;
 

@@ -11,6 +11,7 @@ namespace Zenject.MVP.DOTween
         {
             tween = transform.DOScale(to, duration)
                 .SetEase(ease)
+                .SetUpdate(ignoreTimeScale)
                 .OnComplete(OnTweenComplete);
 
             return this;

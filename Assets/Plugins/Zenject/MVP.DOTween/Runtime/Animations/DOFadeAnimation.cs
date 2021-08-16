@@ -13,6 +13,7 @@ namespace Zenject.MVP.DOTween
             if (TryGetComponent<CanvasGroup>(out var canvasGroup))
                 tween = canvasGroup.DOFade(to, duration)
                     .SetEase(ease)
+                    .SetUpdate(ignoreTimeScale)
                     .OnComplete(OnTweenComplete);
             else OnTweenComplete();
 
