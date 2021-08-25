@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Zenject.MVP
 {
-    public interface IView
+    public interface IView : IDisposable
     {
         string Name { get; set; }
 

@@ -149,6 +149,16 @@ namespace Zenject.MVP
         {
             return children.Find(view => view is T);
         }
+
+        public void Dispose()
+        {
+            for (var i = children.Count - 1; i >= 0; i--)
+                children[i].Dispose();
+
+            Parent = null;
+
+            Destroy(gameObject);
+        }
     }
 
     public class UIView<TPresenter, TView>

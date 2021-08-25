@@ -1,7 +1,7 @@
 {
   "name": "com.chikinov.zenject.mvp",
   "displayName": "Zenject MVP",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "MVP (Model-View-Presenter) extension for Extenject (Zenject)",
   "keywords": [
     "mvp",
